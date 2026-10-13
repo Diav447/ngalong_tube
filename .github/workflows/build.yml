@@ -12,7 +12,7 @@ jobs:
       - name: Generate android folder
         run: |
           flutter create -t app --platforms=android --project-name ngalong_tube temp_proj
-          cp -r temp_proj/android./android
+          cp -r temp_proj/android ./android
           rm -rf temp_proj
           flutter pub get
       - name: Build APK
