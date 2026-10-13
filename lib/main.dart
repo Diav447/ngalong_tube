@@ -32,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
     setState(() => loading = true);
     // pake Piped API public (no key)
     final q = Uri.encodeComponent(ctrl.text);
-    final url = Uri.parse("https://pipedapi.moomoo.me/search?q=$q");
+    final url = Uri.parse("https://api.piped.projectsegfau.lt/search?q=$q");
     try {
       final res = await http.get(url);
       final data = jsonDecode(res.body);
@@ -113,7 +113,7 @@ class _PlayPageState extends State<PlayPage> {
 
   Future<void> _loadStream() async {
     // ambil stream url dari Piped
-    final url = Uri.parse("https://pipedapi.moomoo.me/streams/${widget.videoId}");
+    final url = Uri.parse("https://api.piped.projectsegfau.lt/streams/${widget.videoId}");
     final res = await http.get(url);
     final data = jsonDecode(res.body);
     final streams = data['videoStreams'] as List;
