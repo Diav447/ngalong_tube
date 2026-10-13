@@ -9,11 +9,18 @@ jobs:
         with:
           flutter-version: '3.29.3'
           channel: 'stable'
-      - name: Generate android folder
+      - name: Generate android folder + fix Kotlin
         run: |
           flutter create -t app --platforms=android --project-name ngalong_tube temp_proj
           cp -r temp_proj/android ./android
           rm -rf temp_proj
+          # paksa upgrade kotlin 1.8 -> 2.1.0
+          sed -i 's/"1.8.22"/"2.1.0"/g' android/settings.gradle
+          sed -i 's/"1.9.10"/"2.1.0"/g' android/settings.gradle
+          sed -i 's/"1.8.10"/"2.1.0"/g' android/settings.gradle
+          sed -i 's/version ".*kotlin.*"/version "2.1.0"/g' android/settings.gradle || true
+          sed -i 's/org.jetbrains.kotlin.android" version "[^"]*"/org.jetbrains.kotlin.android" version "2.1.0"/' android/settings.gradle
+          cat android/settings.gradle
           flutter pub get
       - name: Build APK
         run: flutter build apk --release
