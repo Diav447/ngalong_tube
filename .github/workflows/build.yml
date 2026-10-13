@@ -15,11 +15,13 @@ jobs:
           cp -r temp_proj/android ./android
           rm -rf temp_proj
           ls android/
-          sed -i 's/"1.8.22"/"2.1.0"/g' android/settings.gradle
-          sed -i 's/"1.9.10"/"2.1.0"/g' android/settings.gradle
-          sed -i 's/"1.8.10"/"2.1.0"/g' android/settings.gradle
-          sed -i 's/org.jetbrains.kotlin.android" version "[^"]*"/org.jetbrains.kotlin.android" version "2.1.0"/' android/settings.gradle
-          cat android/settings.gradle
+          # fix untuk.gradle dan.gradle.kts
+          sed -i 's/"1.8.22"/"2.1.0"/g' android/settings.gradle android/settings.gradle.kts || true
+          sed -i 's/"1.9.10"/"2.1.0"/g' android/settings.gradle android/settings.gradle.kts || true
+          sed -i 's/"1.8.10"/"2.1.0"/g' android/settings.gradle android/settings.gradle.kts || true
+          sed -i 's/org.jetbrains.kotlin.android" version "[^"]*"/org.jetbrains.kotlin.android" version "2.1.0"/' android/settings.gradle android/settings.gradle.kts || true
+          sed -i "s/org.jetbrains.kotlin.android' version '[^']*'/org.jetbrains.kotlin.android' version '2.1.0'/" android/settings.gradle android/settings.gradle.kts || true
+          cat android/settings.gradle.kts
           flutter pub get
       - name: Build APK
         run: flutter build apk --release
